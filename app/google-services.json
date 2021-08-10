@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1014094682449",
+    "project_id": "aarot-mela",
+    "storage_bucket": "aarot-mela.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014094682449:android:95ef45f2d570e61c5a1b70",
+        "android_client_info": {
+          "package_name": "com.aslam.androidcrudphp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014094682449-1sh6dhbjoqk63iajl21har18dsqgbng7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCL4LdwegxK_4I2CSM1QS352f9wXh-yEWw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014094682449-1sh6dhbjoqk63iajl21har18dsqgbng7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

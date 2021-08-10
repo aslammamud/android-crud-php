@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">android-crud-php</string>
+
+    <string name="facebook_app_id">199835058694407</string>
+    <string name="fb_login_protocol_scheme">fb199835058694407</string>
+
 </resources>
