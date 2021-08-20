@@ -3,5 +3,14 @@
 
     <string name="facebook_app_id">199835058694407</string>
     <string name="fb_login_protocol_scheme">fb199835058694407</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string-array name="quantity_string_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5(Max)</item>
+    </string-array>
 </resources>
