@@ -75,7 +75,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/quantitySpinner"
             app:layout_constraintStart_toEndOf="@+id/quantitySpinner"
             app:layout_constraintTop_toTopOf="@+id/quantitySpinner"
-            app:srcCompat="@drawable/ic_baseline_delete_24" />
+            app:srcCompat="@drawable/delete" />
 
         <TextView
             android:id="@+id/productTotalPriceTextView"

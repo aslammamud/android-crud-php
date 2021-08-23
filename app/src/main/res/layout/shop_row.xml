@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@{String.valueOf(product.price) + ` $`}"
+            android:text="@{String.valueOf(product.price) + ` ৳`}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
         <TextView

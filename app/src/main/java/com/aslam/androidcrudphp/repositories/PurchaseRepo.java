@@ -1,15 +1,10 @@
 package com.aslam.androidcrudphp.repositories;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,14 +18,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class ShopRepo {
+public class PurchaseRepo {
 
     private MutableLiveData<List<Product>> mutableProductList;
 

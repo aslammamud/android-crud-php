@@ -3,17 +3,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.OrderFragment"
     android:orientation="vertical"
-    android:gravity="center"
-    >
+    android:gravity="center">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thanks for your order."
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        />
+        android:text="Plese complete your order."
+        android:paddingVertical="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/shopAddressTextField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Shop Address"
+        app:startIconDrawable="@drawable/location"
+        android:gravity="center"
+        android:layout_marginHorizontal="60dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/shopAddressEditText"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/deliveryPhoneTextField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="Phone"
+        app:prefixText="+88 "
+        app:startIconDrawable="@drawable/phone"
+        android:gravity="center"
+        android:layout_marginHorizontal="60dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/deliveryPhoneEditText"
+            android:inputType="number"
+            android:maxLength="11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+<!--    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Accept Privacy Policy"
+        android:layout_marginHorizontal="60dp"/>-->
 
     <Space
         android:layout_width="match_parent"
@@ -22,9 +67,10 @@
     <Button
         android:id="@+id/continueShoppingButton"
         android:layout_width="wrap_content"
+        android:textColor="#4E736A"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:text="Continue Shopping"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:text="Order"
         />
 
 </LinearLayout>

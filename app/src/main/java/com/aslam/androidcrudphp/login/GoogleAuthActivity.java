@@ -127,17 +127,16 @@ public class GoogleAuthActivity extends MainActivity {
                             // Display the first 500 characters of the response string.
                             //textView.setText("Response is: "+ response.substring(0,500));
                             if(response.equalsIgnoreCase("User profile created!")){
-                                Toast.makeText(getApplicationContext(),"User profile created!" ,Toast.LENGTH_SHORT).show();
+                                Log.d("response: ","User profile created!");
                             }else{
-                                Toast.makeText(getApplicationContext(),response ,Toast.LENGTH_SHORT).show();
-                                Log.d("responseeeeee: ",response);
+                                Log.d("response: ",response);
                             }
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Toast.makeText(getApplicationContext(),error.getMessage() ,Toast.LENGTH_SHORT).show();
-                    Log.d("responseeeeee: ",error.getMessage());
+                    Log.d("response: ",error.getMessage());
                 }
             }){
                 @Nullable
@@ -154,6 +153,7 @@ public class GoogleAuthActivity extends MainActivity {
 
                     params.put("name",userName);
                     params.put("email",userEmail);
+
                     //params.put("phone",userPhone);
 
                     return params;

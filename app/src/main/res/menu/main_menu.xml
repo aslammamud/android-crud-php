@@ -4,9 +4,14 @@
 
     <item android:id="@+id/cartFragment"
         android:title="Cart"
-        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:icon="@drawable/shopping_cart"
         app:showAsAction="always"
         app:actionLayout="@layout/cart_action_item"
         />
+
+    <item android:id="@+id/purchaseFragment"
+        android:title="Order"
+        android:icon="@drawable/list_alt"
+        app:showAsAction="always"/>
 
 </menu>
