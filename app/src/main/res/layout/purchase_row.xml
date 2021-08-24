@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        
+        <variable
+            name="shipment"
+            type="com.aslam.androidcrudphp.models.PurchaseItem" />
+        
+        <variable
+            name="purchaseInterface"
+            type="com.aslam.androidcrudphp.adapters.PurchaseListAdapter.PurchaseInterface" />
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:onClick="@{()-> purchaseInterface.onItemClick(shipment)}">
+
+        <TextView
+            android:id="@+id/purchaseTextViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:paddingLeft="25dp"
+            android:scaleType="fitCenter"
+            android:text="@{`Order No : `+shipment.id}"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="25dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/purchaseTextViewToken"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:gravity="end"
+                android:text="@{`Track ID : `+shipment.token}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
+
+            <TextView
+                android:id="@+id/purchaseTextViewDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:gravity="end"
+                android:text="@{`Date: `+shipment.date}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
+        </LinearLayout>
+
+        <!--
+        android:text="@{`Order No - `+shipment.id}"
+        android:text="@{shipment.token}"
+        -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{shipment.status ? `Delivered` : `Order in process..`}"
+                android:layout_marginRight="30dp"
+                android:textColor="@{shipment.status ? @color/teal_200 : @color/textWarning}"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancelOrderButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel Order"
+                android:textColor="@color/red"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

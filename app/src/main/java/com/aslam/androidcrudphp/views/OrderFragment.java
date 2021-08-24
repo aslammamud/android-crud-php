@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -31,6 +32,7 @@ import com.android.volley.toolbox.Volley;
 import com.aslam.androidcrudphp.R;
 import com.aslam.androidcrudphp.databinding.FragmentOrderBinding;
 import com.aslam.androidcrudphp.models.CartItem;
+import com.aslam.androidcrudphp.models.PurchaseItem;
 import com.aslam.androidcrudphp.viewmodels.ShopViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -121,7 +123,8 @@ public class OrderFragment extends Fragment {
                             String success = jsonObject.getString("success");
                             if(success.equals("1")){
                                 shopViewModel.resetCart();
-                                navController.navigate(R.id.action_orderFragment_to_shopFragment);
+                                shopViewModel.reloadPurchaseHistory();
+                                navController.navigate(R.id.action_orderFragment_to_purchaseFragment);
                                 Toast.makeText(getContext(),"Order has been placed successfully.",Toast.LENGTH_SHORT).show();
                             }else if(success.equals("0")){
                                 String error = jsonObject.getString("error");
@@ -160,7 +163,6 @@ public class OrderFragment extends Fragment {
                 Map<String,String> params = new HashMap<>();
 
                 String cartProducts = new Gson().toJson(cartItems);
-                String cartTotalPrice = shopViewModel.getTotalPrice().toString();
                 /*for(int i=0;i<cartItems.size();i++){
                     ArrayList<String> product = new ArrayList<>();
                     params.put("cartItems", cartItems.get(i).getProduct().getName());
@@ -172,7 +174,7 @@ public class OrderFragment extends Fragment {
                 params.put("shippingAddress",fragmentOrderBinding.shopAddressEditText.getText().toString());
                 params.put("shippingPhone",fragmentOrderBinding.deliveryPhoneEditText.getText().toString());
                 params.put("cartItems",cartProducts);
-                params.put("cartTotalPrice",cartTotalPrice);
+                params.put("cartTotalPrice",shopViewModel.getTotalPrice().getValue().toString());
 
                 return params;
             }

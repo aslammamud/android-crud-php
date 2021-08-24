@@ -17,6 +17,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.aslam.androidcrudphp.models.Product;
+import com.aslam.androidcrudphp.models.PurchaseItem;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,15 +77,16 @@ public class ShopRepo {
                                     JSONObject object = jsonArray.getJSONObject(i);
 
                                     String id = object.getString("product_id");
+                                    String cid = object.getString("product_catg_id");
                                     String name = object.getString("product_name");
                                     double price = Double.parseDouble(object.getString("product_price"));
                                     String imageUrl = object.getString("product_image");
                                     String isAvailable = object.getString("product_status");
 
                                     if(isAvailable.equals("1")){
-                                        productList.add(new Product(id, name, price, true, imageUrl));
+                                        productList.add(new Product(id, cid, name, price, true, imageUrl));
                                     }else{
-                                        productList.add(new Product(id, name, price, false, imageUrl));
+                                        productList.add(new Product(id, cid, name, price, false, imageUrl));
                                     }
                                     mutableProductList.setValue(productList);
                                 }
@@ -107,4 +110,5 @@ public class ShopRepo {
         queue.add(stringRequest);
 
     }
+
 }

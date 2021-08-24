@@ -1,10 +1,13 @@
 package com.aslam.androidcrudphp.models;
 
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.DiffUtil;
+
+import com.bumptech.glide.Glide;
 
 import java.util.Objects;
 
@@ -67,5 +70,13 @@ public class CartItem {
             return oldItem.equals(newItem);
         }
     };
+
+    @BindingAdapter("android:categoryImage")
+    public static void loadImage(ImageView imageView, String imageUrl) {
+        Glide.with(imageView)
+                .load(imageUrl)
+                .fitCenter()
+                .into(imageView);
+    }
 
 }

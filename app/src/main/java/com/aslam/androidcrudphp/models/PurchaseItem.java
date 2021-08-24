@@ -8,19 +8,26 @@ import androidx.recyclerview.widget.DiffUtil;
 
 import com.bumptech.glide.Glide;
 
+import java.util.Objects;
+
 public class PurchaseItem {
     private String id;
-    private String name;
-    private double price;
-    private boolean isAvailable;
-    private String imageUrl;
+    private String token;
+    private String price;
+    private Boolean status;
+    private Boolean destroyed;
+    private String date;
 
-    public PurchaseItem(String id, String name, double price, boolean isAvailable, String imageUrl) {
+    public PurchaseItem() {
+    }
+
+    public PurchaseItem(String id, String token, String price, Boolean status, Boolean destroyed, String date) {
         this.id = id;
-        this.name = name;
+        this.token = token;
         this.price = price;
-        this.isAvailable = isAvailable;
-        this.imageUrl = imageUrl;
+        this.status = status;
+        this.destroyed = destroyed;
+        this.date = date;
     }
 
     public String getId() {
@@ -31,59 +38,70 @@ public class PurchaseItem {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getToken() {
+        return token;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public Boolean getDestroyed() {
+        return destroyed;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setDestroyed(Boolean destroyed) {
+        this.destroyed = destroyed;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", isAvailable=" + isAvailable +
-                ", imageUrl='" + imageUrl + '\'' +
-                '}';
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public static DiffUtil.ItemCallback<PurchaseItem> getItemCallback() {
+        return itemCallback;
+    }
+
+    public static void setItemCallback(DiffUtil.ItemCallback<PurchaseItem> itemCallback) {
+        PurchaseItem.itemCallback = itemCallback;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PurchaseItem product = (PurchaseItem) o;
-        return Double.compare(product.getPrice(), getPrice()) == 0 &&
-                isAvailable() == product.isAvailable() &&
-                getId().equals(product.getId()) &&
-                getName().equals(product.getName()) &&
-                getImageUrl().equals(product.getImageUrl());
+        PurchaseItem that = (PurchaseItem) o;
+        return getId().equals(that.getId()) &&
+                getToken().equals(that.getToken()) &&
+                getPrice().equals(that.getPrice()) &&
+                getStatus().equals(that.getStatus()) &&
+                getDestroyed().equals(that.getDestroyed()) &&
+                getDate().equals(that.getDate());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getToken(), getPrice(), getStatus(), getDestroyed(), getDate());
     }
 
     public static DiffUtil.ItemCallback<PurchaseItem> itemCallback = new DiffUtil.ItemCallback<PurchaseItem>() {
@@ -98,11 +116,4 @@ public class PurchaseItem {
         }
     };
 
-    @BindingAdapter("android:productImage")
-    public static void loadImage(ImageView imageView, String imageUrl) {
-        Glide.with(imageView)
-                .load(imageUrl)
-                .fitCenter()
-                .into(imageView);
-    }
 }

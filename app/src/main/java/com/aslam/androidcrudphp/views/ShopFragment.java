@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,6 +27,7 @@ import com.aslam.androidcrudphp.viewmodels.ShopViewModel;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShopFragment extends Fragment implements ShopListAdapter.ShopInterface {
@@ -53,17 +56,28 @@ public class ShopFragment extends Fragment implements ShopListAdapter.ShopInterf
 
         shopListAdapter = new ShopListAdapter(this);
         fragmentShopBinding.shopRecyclerView.setAdapter(shopListAdapter);
-        fragmentShopBinding.shopRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
-        fragmentShopBinding.shopRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.HORIZONTAL));
-
+        //fragmentShopBinding.shopRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
+        //fragmentShopBinding.shopRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.HORIZONTAL));
         shopViewModel = new ViewModelProvider(requireActivity()).get(ShopViewModel.class);
         shopViewModel.getProducts().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> products) {
-                shopListAdapter.submitList(products);
+                List<Product> customlist = new ArrayList<>();
+                for(int i=0; i<products.size();i++){
+                    if(products.get(i).getCid().equals(shopViewModel.getCategory().getValue().getId())){
+                        customlist.add(products.get(i));
+                        //System.out.println("pcid: "+products.get(i).getCid());
+                        //System.out.println("cid: "+shopViewModel.getCategory().getValue().getId());
+                        //System.out.println(products.get(i));
+                    }
+                }
+                shopListAdapter.submitList(customlist);
+                //System.out.println("custom: "+ customlist);
+
             }
         });
 
+        fragmentShopBinding.setShopViewModel(shopViewModel);
         navController = Navigation.findNavController(view);
 
     }
@@ -91,4 +105,14 @@ public class ShopFragment extends Fragment implements ShopListAdapter.ShopInterf
         shopViewModel.setProduct(product);
         navController.navigate(R.id.action_shopFragment_to_productDetailFragment);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        ActionBar actionBar = activity.getSupportActionBar();
+        //catg = shopViewModel.getCategory().getValue().getName();
+        actionBar.setTitle(shopViewModel.getCategory().getValue().getName());
+    }
+
 }

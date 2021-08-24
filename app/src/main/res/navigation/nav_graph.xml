@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/shopFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/shopFragment"
@@ -24,7 +24,7 @@
     <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.aslam.androidcrudphp.views.ProductDetailFragment"
-        android:label="Product Detail"
+        android:label="Product Details"
         tools:layout="@layout/fragment_product_detail">
         <action
             android:id="@+id/action_productDetailFragment_to_cartFragment"
@@ -46,7 +46,37 @@
         android:label="Order"
         tools:layout="@layout/fragment_order">
         <action
-            android:id="@+id/action_orderFragment_to_shopFragment"
-            app:destination="@id/shopFragment" />
+            android:id="@+id/action_orderFragment_to_purchaseFragment"
+            app:destination="@id/purchaseFragment"
+            app:popUpTo="@id/cartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.aslam.androidcrudphp.views.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_shopFragment"
+            app:destination="@id/shopFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_purchaseFragment"
+            app:destination="@id/purchaseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/purchaseFragment"
+        android:name="com.aslam.androidcrudphp.views.PurchaseFragment"
+        android:label="Purchase History"
+        tools:layout="@layout/fragment_purchase">
+        <action
+            android:id="@+id/action_purchaseFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
 </navigation>

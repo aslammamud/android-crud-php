@@ -2,12 +2,14 @@ package com.aslam.androidcrudphp.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -36,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
 
         mAuth = FirebaseAuth.getInstance();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -96,6 +99,7 @@ public class HomeActivity extends AppCompatActivity {
         finishAffinity();
         finish();
     }
+
 }
 
 /*
