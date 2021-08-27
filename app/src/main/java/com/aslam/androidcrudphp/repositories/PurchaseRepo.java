@@ -49,7 +49,7 @@ public class PurchaseRepo{
     }
 
 
-    private void loadPurchaseHistories() {
+    public static void loadPurchaseHistories() {
         List<PurchaseItem> purchaseList = new ArrayList<>();
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -57,7 +57,7 @@ public class PurchaseRepo{
         System.out.println(user.getEmail());
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url ="http://192.168.0.105/aarot_mela/shipment_all.php";
+        String url ="http://192.168.0.105/aarot_mela/shipment_req_user.php";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -82,7 +82,16 @@ public class PurchaseRepo{
                                     String destroyed = object.getString("ship_destroyed");
                                     String date = object.getString("ship_process_date");
 
-                                    purchaseList.add(new PurchaseItem(id, token, price, Boolean.parseBoolean(status), Boolean.parseBoolean(destroyed), date));
+                                    if(status.equals("1") && destroyed.equals("1")){
+                                        purchaseList.add(new PurchaseItem(id, token, price, true, true, date));
+                                    }else if(status.equals("1") && destroyed.equals("0")){
+                                        purchaseList.add(new PurchaseItem(id, token, price, true, false, date));
+                                    }else if(status.equals("0") && destroyed.equals("1")){
+                                        purchaseList.add(new PurchaseItem(id, token, price, false, true, date));
+                                    }else {
+                                        purchaseList.add(new PurchaseItem(id, token, price, false, false, date));
+                                    }
+
                                     mutablePurchaseList.setValue(purchaseList);
                                 }
                             }
@@ -136,9 +145,7 @@ public class PurchaseRepo{
                                 if (mutablePurchaseList.getValue() == null) {
                                     return;
                                 }
-                                List<PurchaseItem> purchaseItemList = new ArrayList<>(mutablePurchaseList.getValue());
-                                purchaseItemList.remove(purchaseItem);
-                                mutablePurchaseList.setValue(purchaseItemList);
+                                reloadPurchaseHistory();
 
                                 Toast.makeText(getApplicationContext(),"Order Cancelled",Toast.LENGTH_SHORT).show();
                             }
@@ -171,7 +178,7 @@ public class PurchaseRepo{
         queue.add(stringRequest);
     }
 
-    public void reloadPurchaseHistory(){
+    public static void reloadPurchaseHistory(){
         List<PurchaseItem> purchaseItemList = new ArrayList<>(mutablePurchaseList.getValue());
         loadPurchaseHistories();
         mutablePurchaseList.setValue(purchaseItemList);

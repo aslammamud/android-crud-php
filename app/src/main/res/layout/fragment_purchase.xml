@@ -13,6 +13,6 @@
         android:layout_marginTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="1"
-        tools:listitem="@layout/home_row"/>
+        tools:listitem="@layout/purchase_row"/>
 
 </FrameLayout>
