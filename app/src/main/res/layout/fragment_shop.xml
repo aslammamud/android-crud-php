@@ -7,7 +7,6 @@
         <variable
             name="shopViewModel"
             type="com.aslam.androidcrudphp.viewmodels.ShopViewModel" />
-
     </data>
 
     <FrameLayout

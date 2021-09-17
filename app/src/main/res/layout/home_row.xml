@@ -5,37 +5,37 @@
     <data>
         
         <variable
-            name="category"
-            type="com.aslam.androidcrudphp.models.CategoryItem" />
+            name="company"
+            type="com.aslam.androidcrudphp.models.CompanyItem" />
         
         <variable
-            name="homeInterface"
-            type="com.aslam.androidcrudphp.adapters.CategoryListAdapter.HomeInterface" />
-
+            name="companyInterface"
+            type="com.aslam.androidcrudphp.adapters.CompanyListAdapter.CompanyInterface" />
     </data>
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
+        android:gravity="center"
         android:background="?attr/selectableItemBackground"
-        android:onClick="@{()-> homeInterface.onItemClick(category)}">
+        android:onClick="@{()-> companyInterface.onItemClick(company)}">
 
             <ImageView
-                android:id="@+id/categoryImageView"
+                android:id="@+id/companyImageView"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/iphone11"
-                android:categoryImage="@{category.imageUrl}" />
+                android:categoryImage="@{company.imageUrl}" />
 
             <TextView
-                android:id="@+id/categoryNameTextView"
+                android:id="@+id/companyNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{category.name}"
+                android:text="@{company.name}"
                 android:layout_gravity="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 

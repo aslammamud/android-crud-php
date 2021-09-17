@@ -39,7 +39,7 @@ public class CategoryRepo {
         List<CategoryItem> categoryList = new ArrayList<>();
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url ="http://192.168.0.105/aarot_mela/categories_all.php";
+        String url ="http://192.168.1.100/aarot_mela/categories_all.php";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -58,14 +58,15 @@ public class CategoryRepo {
                                     JSONObject object = jsonArray.getJSONObject(i);
 
                                     String id = object.getString("category_id");
+                                    String company_id = object.getString("category_cmp_id");
                                     String name = object.getString("category_name");
                                     String imageUrl = object.getString("category_image");
                                     String isAvailable = object.getString("category_status");
 
                                     if(isAvailable.equals("1")){
-                                        categoryList.add(new CategoryItem(id, name, imageUrl, true));
+                                        categoryList.add(new CategoryItem(id, company_id, name, imageUrl, true));
                                     }else{
-                                        categoryList.add(new CategoryItem(id, name, imageUrl, false));
+                                        categoryList.add(new CategoryItem(id, company_id, name, imageUrl, false));
                                     }
                                     mutableCategoryList.setValue(categoryList);
                                 }

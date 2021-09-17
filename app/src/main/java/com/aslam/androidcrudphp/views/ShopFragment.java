@@ -11,10 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.DividerItemDecoration;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +21,6 @@ import com.aslam.androidcrudphp.adapters.ShopListAdapter;
 import com.aslam.androidcrudphp.databinding.FragmentShopBinding;
 import com.aslam.androidcrudphp.models.Product;
 import com.aslam.androidcrudphp.viewmodels.ShopViewModel;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -64,7 +60,7 @@ public class ShopFragment extends Fragment implements ShopListAdapter.ShopInterf
             public void onChanged(List<Product> products) {
                 List<Product> customlist = new ArrayList<>();
                 for(int i=0; i<products.size();i++){
-                    if(products.get(i).getCid().equals(shopViewModel.getCategory().getValue().getId())){
+                    if(products.get(i).getCategory_id().equals(shopViewModel.getCategory().getValue().getId())){
                         customlist.add(products.get(i));
                         //System.out.println("pcid: "+products.get(i).getCid());
                         //System.out.println("cid: "+shopViewModel.getCategory().getValue().getId());
@@ -111,7 +107,6 @@ public class ShopFragment extends Fragment implements ShopListAdapter.ShopInterf
         super.onResume();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        //catg = shopViewModel.getCategory().getValue().getName();
         actionBar.setTitle(shopViewModel.getCategory().getValue().getName());
     }
 

@@ -94,7 +94,8 @@ public class PurchaseFragment extends Fragment implements PurchaseListAdapter.Pu
 
     @Override
     public void onItemClick(PurchaseItem purchaseItem) {
-
+        shopViewModel.setPurchase(purchaseItem);
+        navController.navigate(R.id.action_purchaseFragment_to_purchaseDetailFragment);
     }
 
 }

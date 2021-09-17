@@ -7,12 +7,14 @@ import java.util.Objects;
 
 public class CategoryItem {
     private String id;
+    private String company_id;
     private String name;
     private String imageUrl;
     private Boolean isAvailable;
 
-    public CategoryItem(String id, String name, String imageUrl, Boolean isAvailable) {
+    public CategoryItem(String id, String company_id, String name, String imageUrl, Boolean isAvailable) {
         this.id = id;
+        this.company_id = company_id;
         this.name = name;
         this.imageUrl = imageUrl;
         this.isAvailable = isAvailable;
@@ -27,6 +29,14 @@ public class CategoryItem {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getCompany_id() {
+        return company_id;
+    }
+
+    public void setCompany_id(String company_id) {
+        this.company_id = company_id;
     }
 
     public String getName() {
@@ -57,6 +67,7 @@ public class CategoryItem {
     public String toString() {
         return "CategoryItem{" +
                 "id='" + id + '\'' +
+                ", company_id='" + company_id + '\'' +
                 ", name='" + name + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", isAvailable='" + isAvailable + '\'' +
@@ -69,6 +80,7 @@ public class CategoryItem {
         if (o == null || getClass() != o.getClass()) return false;
         CategoryItem that = (CategoryItem) o;
         return getId().equals(that.getId()) &&
+                getCompany_id().equals(that.getCompany_id()) &&
                 getName().equals(that.getName()) &&
                 getImageUrl().equals(that.getImageUrl()) &&
                 getIsAvailable().equals(that.getIsAvailable());

@@ -57,7 +57,7 @@ public class PurchaseRepo{
         System.out.println(user.getEmail());
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url ="http://192.168.0.105/aarot_mela/shipment_req_user.php";
+        String url ="http://192.168.1.100/aarot_mela/shipment_req_user.php";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -78,18 +78,26 @@ public class PurchaseRepo{
                                     String id = object.getString("ship_id");
                                     String token = object.getString("ship_order_token");
                                     String price = object.getString("ship_cost");
+                                    String name = object.getString("ship_user_name");
+                                    String address = object.getString("ship_address");
+                                    String phone = object.getString("ship_phone");
                                     String status = object.getString("ship_status");
                                     String destroyed = object.getString("ship_destroyed");
-                                    String date = object.getString("ship_process_date");
+                                    String process_date = object.getString("ship_process_date");
+                                    String delivery_date = object.getString("ship_process_date");
+                                    String agent_name = object.getString("ship_agent_name");
+                                    String agent_phone = object.getString("ship_agent_phone");
+
+                                    //String id, String token, String price, String address, String process_date, String delivery_date, String agent_name, String agent_phone, Boolean status, Boolean destroyed
 
                                     if(status.equals("1") && destroyed.equals("1")){
-                                        purchaseList.add(new PurchaseItem(id, token, price, true, true, date));
+                                        purchaseList.add(new PurchaseItem(id, token, price, name, address, phone, process_date, delivery_date, agent_name, agent_phone, true, true));
                                     }else if(status.equals("1") && destroyed.equals("0")){
-                                        purchaseList.add(new PurchaseItem(id, token, price, true, false, date));
+                                        purchaseList.add(new PurchaseItem(id, token, price, name, address, phone, process_date, delivery_date, agent_name, agent_phone, true, false));
                                     }else if(status.equals("0") && destroyed.equals("1")){
-                                        purchaseList.add(new PurchaseItem(id, token, price, false, true, date));
+                                        purchaseList.add(new PurchaseItem(id, token, price, name, address, phone, process_date, delivery_date, agent_name, agent_phone, false, true));
                                     }else {
-                                        purchaseList.add(new PurchaseItem(id, token, price, false, false, date));
+                                        purchaseList.add(new PurchaseItem(id, token, price, name, address, phone, process_date, delivery_date, agent_name, agent_phone, false, false));
                                     }
 
                                     mutablePurchaseList.setValue(purchaseList);
@@ -100,7 +108,7 @@ public class PurchaseRepo{
                             jsonException.printStackTrace();
                         }
 
-                        Log.d("purchaseHistoryRepo: ",response);
+                        //Log.d("purchaseHistoryRepo: ",response);
 
                     }
                 }, new Response.ErrorListener() {
@@ -129,7 +137,7 @@ public class PurchaseRepo{
 
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url ="http://192.168.0.105/aarot_mela/shipment_req_cancel.php";
+        String url ="http://192.168.1.100/aarot_mela/shipment_req_cancel.php";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,

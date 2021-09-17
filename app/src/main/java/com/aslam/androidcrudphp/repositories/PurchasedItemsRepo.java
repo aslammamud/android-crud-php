@@ -1,11 +1,9 @@
 package com.aslam.androidcrudphp.repositories;
 
-import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -16,9 +14,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.aslam.androidcrudphp.models.Product;
 import com.aslam.androidcrudphp.models.PurchaseItem;
-import com.google.gson.Gson;
+import com.aslam.androidcrudphp.models.PurchasedProductItem;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,26 +27,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class ShopRepo {
+public class PurchasedItemsRepo {
 
-    private MutableLiveData<List<Product>> mutableProductList;
+    static private MutableLiveData<List<PurchasedProductItem>> mutablePurchaseList;
 
-    public LiveData<List<Product>> getProducts() {
-        if (mutableProductList == null) {
-            mutableProductList = new MutableLiveData<>();
-            loadProducts();
+    public LiveData<List<PurchasedProductItem>> getPurchasedItemsHistories(String order_token) {
+        if (mutablePurchaseList == null) {
+            mutablePurchaseList = new MutableLiveData<>();
+            loadPurchasedItems(order_token);
         }
-        return mutableProductList;
+        return mutablePurchaseList;
     }
 
-    private void loadProducts() {
-        List<Product> productList = new ArrayList<>();
+
+    public static void loadPurchasedItems(String order_token) {
+        List<PurchasedProductItem> purchasedItemsList = new ArrayList<>();
+
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url ="http://192.168.1.100/aarot_mela/products_all.php";
+        String url ="http://192.168.1.100/aarot_mela/shipment_req_user_purchased_items.php";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -65,19 +65,14 @@ public class ShopRepo {
                                 for(int i=0;i<jsonArray.length();i++){
                                     JSONObject object = jsonArray.getJSONObject(i);
 
-                                    String id = object.getString("product_id");
-                                    String cid = object.getString("product_catg_id");
-                                    String name = object.getString("product_name");
-                                    double price = Double.parseDouble(object.getString("product_price"));
-                                    String imageUrl = object.getString("product_image");
-                                    String isAvailable = object.getString("product_status");
+                                    String id = object.getString("id");
+                                    String name = object.getString("name");
+                                    String price = object.getString("price");
+                                    String quantity = object.getString("quantity");
 
-                                    if(isAvailable.equals("1")){
-                                        productList.add(new Product(id, cid, name, price, true, imageUrl));
-                                    }else{
-                                        productList.add(new Product(id, cid, name, price, false, imageUrl));
-                                    }
-                                    mutableProductList.setValue(productList);
+                                    purchasedItemsList.add(new PurchasedProductItem(id,name,price,quantity));
+
+                                    mutablePurchaseList.setValue(purchasedItemsList);
                                 }
                             }
 
@@ -85,7 +80,7 @@ public class ShopRepo {
                             jsonException.printStackTrace();
                         }
 
-                        Log.d("ShopRepo: ",response);
+                        //Log.d("purchaseHistoryRepo: ",response);
 
                     }
                 }, new Response.ErrorListener() {
@@ -93,11 +88,24 @@ public class ShopRepo {
             public void onErrorResponse(VolleyError error) {
                 Log.d("response: ",error.getMessage());
             }
-        });
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String,String>();
+                params.put("order_token",order_token);
+                return params;
+            }
+        };
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
     }
 
+    public static void reloadPurchasedItemsHistory(String order_token){
+        mutablePurchaseList = new MutableLiveData<>();
+        loadPurchasedItems(order_token);
+
+    }
 }

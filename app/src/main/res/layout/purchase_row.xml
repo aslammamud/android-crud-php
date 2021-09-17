@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:gravity="end"
-                android:text="@{`Date: `+shipment.date}"
+                android:text="@{`Date: `+shipment.process_date}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
         </LinearLayout>
 
@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="customer"
+                android:text="@{shipment.agent_name}"
                 android:gravity="end"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
@@ -78,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:gravity="end"
+                android:text="@{shipment.delivery_date}"
                 android:textColor="@color/green"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
         </LinearLayout>

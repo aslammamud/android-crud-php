@@ -9,45 +9,46 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.aslam.androidcrudphp.databinding.CategoryRowBinding;
 import com.aslam.androidcrudphp.databinding.HomeRowBinding;
 import com.aslam.androidcrudphp.models.CategoryItem;
 
 public class CategoryListAdapter extends ListAdapter<CategoryItem, CategoryListAdapter.CategoryViewHolder> {
 
-    HomeInterface homeInterface;
-    public CategoryListAdapter(HomeInterface homeInterface) {
+    CategoryInterface categoryInterface;
+    public CategoryListAdapter(CategoryInterface homeInterface) {
         super(CategoryItem.itemCallback);
-        this.homeInterface = homeInterface;
+        this.categoryInterface = homeInterface;
     }
 
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        HomeRowBinding homeRowBinding = HomeRowBinding.inflate(layoutInflater,parent,false);
-        homeRowBinding.setHomeInterface(homeInterface);
+        CategoryRowBinding categoryRowBinding = CategoryRowBinding.inflate(layoutInflater,parent,false);
+        categoryRowBinding.setCategoryInterface(categoryInterface);
 
-        return new CategoryViewHolder(homeRowBinding);
+        return new CategoryViewHolder(categoryRowBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         CategoryItem categoryItem = getItem(position);
 
-        holder.homeRowBinding.setCategory(categoryItem);
+        holder.categoryRowBinding.setCategory(categoryItem);
     }
 
     class CategoryViewHolder extends RecyclerView.ViewHolder{
 
-        HomeRowBinding homeRowBinding;
+        CategoryRowBinding categoryRowBinding;
 
-        public CategoryViewHolder(HomeRowBinding binding) {
+        public CategoryViewHolder(CategoryRowBinding binding) {
             super(binding.getRoot());
-            this.homeRowBinding = binding;
+            this.categoryRowBinding = binding;
         }
     }
 
-    public interface HomeInterface {
+    public interface CategoryInterface {
         void onItemClick(CategoryItem categoryItem);
     }
 }

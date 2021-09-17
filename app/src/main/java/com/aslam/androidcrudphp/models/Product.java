@@ -12,15 +12,15 @@ import java.util.Objects;
 
 public class Product {
     private String id;
-    private String cid;
+    private String category_id;
     private String name;
     private double price;
     private boolean isAvailable;
     private String imageUrl;
 
-    public Product(String id, String cid, String name, double price, boolean isAvailable, String imageUrl) {
+    public Product(String id, String category_id, String name, double price, boolean isAvailable, String imageUrl) {
         this.id = id;
-        this.cid = cid;
+        this.category_id = category_id;
         this.name = name;
         this.price = price;
         this.isAvailable = isAvailable;
@@ -35,12 +35,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getCid() {
-        return cid;
+    public String getCategory_id() {
+        return category_id;
     }
 
-    public void setCid(String cid) {
-        this.cid = cid;
+    public void setCategory_id(String category_id) {
+        this.category_id = category_id;
     }
 
     public String getName() {
@@ -79,7 +79,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id='" + id + '\'' +
-                "cid='" + cid + '\'' +
+                "cid='" + category_id + '\'' +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", isAvailable=" + isAvailable +
@@ -95,14 +95,14 @@ public class Product {
         return Double.compare(product.getPrice(), getPrice()) == 0 &&
                 isAvailable() == product.isAvailable() &&
                 getId().equals(product.getId()) &&
-                getCid().equals(product.getCid()) &&
+                getCategory_id().equals(product.getCategory_id()) &&
                 getName().equals(product.getName()) &&
                 getImageUrl().equals(product.getImageUrl());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getCid(), getName(), getPrice(), isAvailable(), getImageUrl());
+        return Objects.hash(getId(), getCategory_id(), getName(), getPrice(), isAvailable(), getImageUrl());
     }
 
     public static DiffUtil.ItemCallback<Product> itemCallback = new DiffUtil.ItemCallback<Product>() {

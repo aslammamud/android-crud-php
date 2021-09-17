@@ -51,67 +51,19 @@ public class PurchaseListAdapter extends ListAdapter<PurchaseItem, PurchaseListA
     public void onBindViewHolder(@NonNull PurchaseViewHolder holder, int position) {
         PurchaseItem purchaseItem = getItem(position);
 
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url ="http://192.168.0.105/aarot_mela/shipment_agent_info.php";
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try{
-                            JSONObject jsonObject = new JSONObject(response);
-
-                            //System.out.println(jsonObject);
-                            String success = jsonObject.getString("success");
-                            if(success.equals("1")){
-                                holder.purchaseRowBinding.agentName.setText(jsonObject.getString("agent_name"));
-                                holder.purchaseRowBinding.orderDeliveryDate.setText("Delivered: "+jsonObject.getString("order_delivery_date"));
-                            }
-
-                        }catch (JSONException jsonException){
-                            jsonException.printStackTrace();
-                        }
-
-                        //Log.d("Data: ",response);
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("response: ",error.getMessage());
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String,String>();
-
-                params.put("ship_id", purchaseItem.getId());
-
-                return params;
-            }
-        };
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-
-
         if (!purchaseItem.getStatus() && purchaseItem.getDestroyed()){
             holder.purchaseRowBinding.orderStatus.setText("Order Canceled");
             holder.purchaseRowBinding.orderStatus.setTextColor(Color.parseColor("#ff0000"));
 
             holder.purchaseRowBinding.cancelOrderButton.setEnabled(false);
             holder.purchaseRowBinding.cancelOrderButton.setTextColor(Color.parseColor("#6F6A6566"));
-        }else{
-            if(purchaseItem.getStatus()){
-                holder.purchaseRowBinding.cancelOrderButton.setEnabled(false);
-                holder.purchaseRowBinding.cancelOrderButton.setText("Delivered");
-                holder.purchaseRowBinding.cancelOrderButton.setTextColor(Color.parseColor("#6F6A6566"));
-                holder.purchaseRowBinding.orderStatus.setText("Order Delivered");
-                holder.purchaseRowBinding.orderStatus.setTextColor(Color.parseColor("#00C853"));
-            }
+        }else if(purchaseItem.getStatus()){
+            holder.purchaseRowBinding.cancelOrderButton.setEnabled(false);
+            holder.purchaseRowBinding.cancelOrderButton.setTextColor(Color.parseColor("#6F6A6566"));
+            holder.purchaseRowBinding.orderStatus.setText("Order Delivered");
+            holder.purchaseRowBinding.orderStatus.setTextColor(Color.parseColor("#00C853"));
         }
+
 
         holder.purchaseRowBinding.setShipment(purchaseItem);
     }

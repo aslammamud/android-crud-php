@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_shopFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_shopFragment_to_purchaseFragment"
+            app:destination="@id/purchaseFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
@@ -29,6 +32,9 @@
         <action
             android:id="@+id/action_productDetailFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_purchaseFragment"
+            app:destination="@id/purchaseFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -39,6 +45,9 @@
             android:id="@+id/action_cartFragment_to_orderFragment"
             app:destination="@id/orderFragment"
             app:popUpTo="@id/shopFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_purchaseFragment"
+            app:destination="@id/purchaseFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderFragment"
@@ -56,18 +65,14 @@
         android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_shopFragment"
-            app:destination="@id/shopFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
             android:id="@+id/action_homeFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
         <action
             android:id="@+id/action_homeFragment_to_purchaseFragment"
             app:destination="@id/purchaseFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/purchaseFragment"
@@ -78,5 +83,27 @@
             android:id="@+id/action_purchaseFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_purchaseFragment_to_purchaseDetailFragment"
+            app:destination="@id/purchaseDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.aslam.androidcrudphp.views.CategoryFragment"
+        android:label="Category"
+        tools:layout="@layout/fragment_category">
+        <action
+            android:id="@+id/action_categoryFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_purchaseFragment"
+            app:destination="@id/purchaseFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_shopFragment"
+            app:destination="@id/shopFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/purchaseDetailFragment"
+        android:name="com.aslam.androidcrudphp.views.PurchaseDetailFragment"
+        android:label="PurchaseDetailFragment" />
 </navigation>

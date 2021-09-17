@@ -45,17 +45,16 @@ public class MainActivity extends AppCompatActivity{
         };
 
 
-        fb_login_button = findViewById(R.id.fb_login_button);
-        google_login_button = findViewById(R.id.google_login_button);
-
+/*        fb_login_button = findViewById(R.id.fb_login_button);
         fb_login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, FacebookAuthActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
+        google_login_button = findViewById(R.id.google_login_button);
         google_login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

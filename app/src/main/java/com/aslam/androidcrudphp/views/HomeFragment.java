@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,15 +18,17 @@ import android.view.ViewGroup;
 
 import com.aslam.androidcrudphp.R;
 import com.aslam.androidcrudphp.adapters.CategoryListAdapter;
+import com.aslam.androidcrudphp.adapters.CompanyListAdapter;
 import com.aslam.androidcrudphp.databinding.FragmentHomeBinding;
 import com.aslam.androidcrudphp.models.CategoryItem;
+import com.aslam.androidcrudphp.models.CompanyItem;
 import com.aslam.androidcrudphp.viewmodels.ShopViewModel;
 
 import java.util.List;
 
-public class HomeFragment extends Fragment implements CategoryListAdapter.HomeInterface {
+public class HomeFragment extends Fragment implements CompanyListAdapter.CompanyInterface {
     FragmentHomeBinding fragmentHomeBinding;
-    private CategoryListAdapter categoryListAdapter;
+    private CompanyListAdapter companyListAdapter;
     private ShopViewModel shopViewModel;
     private NavController navController;
 
@@ -46,14 +49,14 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.HomeIn
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        categoryListAdapter = new CategoryListAdapter(this);
-        fragmentHomeBinding.homeRecyclerView.setAdapter(categoryListAdapter);
-
+        companyListAdapter = new CompanyListAdapter(this);
+        fragmentHomeBinding.homeRecyclerView.setAdapter(companyListAdapter);
+        fragmentHomeBinding.homeRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         shopViewModel = new ViewModelProvider(requireActivity()).get(ShopViewModel.class);
-        shopViewModel.getCategories().observe(getViewLifecycleOwner(), new Observer<List<CategoryItem>>() {
+        shopViewModel.getCompanies().observe(getViewLifecycleOwner(), new Observer<List<CompanyItem>>() {
             @Override
-            public void onChanged(List<CategoryItem> categoryItems) {
-                categoryListAdapter.submitList(categoryItems);
+            public void onChanged(List<CompanyItem> companyItems) {
+                companyListAdapter.submitList(companyItems);
             }
         });
 
@@ -61,10 +64,10 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.HomeIn
     }
 
     @Override
-    public void onItemClick(CategoryItem categoryItem) {
-        Log.d("categoryItem", categoryItem.toString());
+    public void onItemClick(CompanyItem companyItem) {
+        Log.d("companyItem", companyItem.toString());
 
-        shopViewModel.setCategory(categoryItem);
-        navController.navigate(R.id.action_homeFragment_to_shopFragment);
+        shopViewModel.setCompany(companyItem);
+        navController.navigate(R.id.action_homeFragment_to_categoryFragment);
     }
 }
